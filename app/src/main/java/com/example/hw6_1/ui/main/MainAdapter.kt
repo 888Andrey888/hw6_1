@@ -1,8 +1,10 @@
 package com.example.hw6_1.ui.main
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.example.hw6_1.R
@@ -14,11 +16,11 @@ class MainAdapter(
     val onLongClickItem: (position: Int) -> Unit
 ) : Adapter<MainAdapter.ViewHolder>() {
 
-    private var list = ArrayList<TaskModel>()
+    private var list = listOf<TaskModel>()
 
-    fun setDataInList(list: List<TaskModel>) {
-        this.list.clear()
-        this.list.addAll(list)
+    fun addDataInList(list: List<TaskModel>){
+        this.list = list
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

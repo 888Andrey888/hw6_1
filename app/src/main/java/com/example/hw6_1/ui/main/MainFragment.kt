@@ -6,16 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.hw6_1.R
 import com.example.hw6_1.databinding.FragmentMainBinding
+import com.example.hw6_1.model.TaskModel
 
 class MainFragment : Fragment() {
 
     private lateinit var binding: FragmentMainBinding
     private lateinit var mainViewModel: MainViewModel
-    private var adapter = MainAdapter(this::onClickItem, this::showAlertDialog)
+    private val adapter = MainAdapter(this::onClickItem, this::showAlertDialog)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,9 +30,16 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        initStart()
         initRecyclerView()
         initListener()
+    }
+
+    private fun initStart() {
+        mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        setFragmentResultListener("title") { _, bundle ->
+            bundle.getString("bundleKey")?.let { mainViewModel.addNewTask(it) }
+        }
     }
 
     private fun initListener() {
@@ -40,13 +50,13 @@ class MainFragment : Fragment() {
 
     private fun initRecyclerView() {
         mainViewModel.liveData.observe(viewLifecycleOwner) { list ->
-            adapter.setDataInList(list)
+            adapter.addDataInList(list)
+            binding.recyclerView.adapter = adapter
         }
-        binding.recyclerView.adapter = adapter
     }
 
     private fun onClickItem(position: Int) {
-        mainViewModel.setDone(position)
+        mainViewModel.setTaskDone(position)
     }
 
     private fun showAlertDialog(position: Int) {
