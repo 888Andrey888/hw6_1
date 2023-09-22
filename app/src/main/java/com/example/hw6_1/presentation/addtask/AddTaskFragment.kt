@@ -9,9 +9,11 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
+import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
 import com.example.hw6_1.MainActivity
 import com.example.hw6_1.R
+import com.example.hw6_1.core.base.BaseFragment
 import com.example.hw6_1.databinding.FragmentAddTaskBinding
 import com.example.hw6_1.model.TaskModel
 import com.example.hw6_1.utils.Сonstants.Companion.REQUIRES_KEY_ADD_TASK
@@ -20,30 +22,31 @@ import com.example.hw6_1.utils.Сonstants.Companion.REQUIRES_KEY_MAIN_TO_ADD
 import com.example.hw6_1.utils.Сonstants.Companion.REQUIRES_KEY_SET_TASK
 import com.example.hw6_1.utils.Сonstants.Companion.REQUIRES_KEY_UPDATE_TASK
 
-class AddTaskFragment : Fragment() {
+class AddTaskFragment : BaseFragment<FragmentAddTaskBinding, ViewModel>() {
+    override val viewModel: ViewModel
+        get() = TODO("Not yet implemented")
 
-    private lateinit var binding: FragmentAddTaskBinding
+    override fun inflaterViewBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ) = FragmentAddTaskBinding.inflate(inflater, container, false)
+
     private var _task: TaskModel? = null
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentAddTaskBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initListener()
+    }
+
+    override fun initStart() {
+        super.initStart()
         setFragmentResultListener(REQUIRES_KEY_MAIN_TO_ADD) { _, bundle ->
             bundle.getSerializable(REQUIRES_KEY_SET_TASK)?.let { task ->
                 _task = task as TaskModel
                 initView()
             }
         }
-        initListener()
     }
-
 
     override fun onStart() {
         super.onStart()
@@ -59,7 +62,7 @@ class AddTaskFragment : Fragment() {
         }
     }
 
-    private fun initListener() {
+    override fun initListener() {
         binding.btnAddTask.setOnClickListener {
             if (_task == null)
                 addNewTask()
@@ -87,10 +90,8 @@ class AddTaskFragment : Fragment() {
         findNavController().navigateUp()
     }
 
-    @SuppressLint("RestrictedApi")
     override fun onStop() {
         super.onStop()
         (activity as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        (activity as MainActivity).supportActionBar?.openOptionsMenu()
     }
 }
