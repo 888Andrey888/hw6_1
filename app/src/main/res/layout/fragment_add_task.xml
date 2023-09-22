@@ -6,14 +6,24 @@
     android:padding="@dimen/default_margin_padding"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context=".ui.addtask.AddTaskFragment">
+    tools:context=".presentation.addtask.AddTaskFragment">
 
     <EditText
         android:id="@+id/et_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/add_task_title"
+        android:inputType="text"
         android:textSize="@dimen/default_text_size" />
+
+    <CheckBox
+        android:id="@+id/cb_state"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:text="@string/state"
+        android:textSize="@dimen/default_text_size"
+        android:layout_marginTop="@dimen/default_margin_padding"/>
 
     <Button
         android:id="@+id/btn_add_task"

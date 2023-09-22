@@ -10,4 +10,9 @@
     <string name="delete_message">Delete this task?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="update">Update</string>
+    <string name="state">State</string>
+    <string name="show_all">Show all</string>
+    <string name="show_active">Show active</string>
+    <string name="show_not_active">Show not active</string>
 </resources>
