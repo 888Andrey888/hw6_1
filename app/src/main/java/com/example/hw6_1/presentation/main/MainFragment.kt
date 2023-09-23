@@ -19,11 +19,11 @@ import com.example.hw6_1.core.base.BaseFragment
 import com.example.hw6_1.databinding.FragmentMainBinding
 import com.example.hw6_1.model.TaskModel
 import com.example.hw6_1.utils.ToDisplay
-import com.example.hw6_1.utils.Сonstants.Companion.REQUIRES_KEY_ADD_TASK
-import com.example.hw6_1.utils.Сonstants.Companion.REQUIRES_KEY_ADD_TO_MAIN
-import com.example.hw6_1.utils.Сonstants.Companion.REQUIRES_KEY_MAIN_TO_ADD
-import com.example.hw6_1.utils.Сonstants.Companion.REQUIRES_KEY_SET_TASK
-import com.example.hw6_1.utils.Сonstants.Companion.REQUIRES_KEY_UPDATE_TASK
+import com.example.hw6_1.utils.Сonstants.REQUIRES_KEY_ADD_TASK
+import com.example.hw6_1.utils.Сonstants.REQUIRES_KEY_ADD_TO_MAIN
+import com.example.hw6_1.utils.Сonstants.REQUIRES_KEY_MAIN_TO_ADD
+import com.example.hw6_1.utils.Сonstants.REQUIRES_KEY_SET_TASK
+import com.example.hw6_1.utils.Сonstants.REQUIRES_KEY_UPDATE_TASK
 
 class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
     private val adapter = MainAdapter(this::onClickItem, this::showAlertDialog, this::updateTask)

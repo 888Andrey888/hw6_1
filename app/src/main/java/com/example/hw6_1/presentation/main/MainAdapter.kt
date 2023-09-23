@@ -10,9 +10,9 @@ import com.example.hw6_1.databinding.ItemTaskBinding
 import com.example.hw6_1.model.TaskModel
 
 class MainAdapter(
-    val onClickItem: (task: TaskModel) -> Unit,
-    val onLongClickItem: (task: TaskModel) -> Unit,
-    val updateTask: (task: TaskModel) -> Unit
+    private val onClickItem: (task: TaskModel) -> Unit,
+    private val onLongClickItem: (task: TaskModel) -> Unit,
+    private val updateTask: (task: TaskModel) -> Unit
 ) : Adapter<MainAdapter.ViewHolder>() {
 
     private val _tasks = mutableListOf<TaskModel>()
